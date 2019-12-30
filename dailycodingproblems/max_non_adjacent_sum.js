@@ -1,4 +1,4 @@
-function max_non_adjacent_sum(arr) {
+function max_non_adjacent_sum_non_linear(arr) {
     if (!arr || !Array.isArray(arr) || arr.length <= 0) {
         return 0;
     }
@@ -14,5 +14,30 @@ function max_non_adjacent_sum(arr) {
     return dp[n];
 }
 
-console.log(max_non_adjacent_sum([5, 1, 1, 5]));
-console.log(max_non_adjacent_sum([2, 4, 6, 2, 5]));
+function max_non_adjacent_sum_linear(arr) {
+    if (!arr || !Array.isArray(arr) || arr.length <= 0) {
+        return 0;
+    }
+    const n = arr.length;
+    let inclusive = arr[0];
+    let exclusive = 0;
+    let temp;
+    let i = 1;
+    while (i < n) {
+        temp = inclusive > exclusive ? inclusive : exclusive;
+        inclusive = exclusive + arr[i];
+        exclusive = temp;
+        i++;
+    }
+    return inclusive > exclusive ? inclusive : exclusive;
+}
+
+
+// console.log(max_non_adjacent_sum_non_linear([5, 1, 1, 5]));
+// console.log(max_non_adjacent_sum_non_linear([2, 4, 6, 2, 5]));
+// console.log(max_non_adjacent_sum_non_linear([5, 5, 10, 100, 10, 5]));
+
+
+console.log(max_non_adjacent_sum_linear([5, 1, 1, 5]));
+console.log(max_non_adjacent_sum_linear([2, 4, 6, 2, 5]));
+console.log(max_non_adjacent_sum_linear([5, 5, 10, 100, 10, 5]));
